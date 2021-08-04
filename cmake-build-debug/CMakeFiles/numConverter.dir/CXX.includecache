@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/User/CLionProjects/numConverter/Convert.cpp
+Convert.h
+C:/Users/User/CLionProjects/numConverter/Convert.h
+
+C:/Users/User/CLionProjects/numConverter/Convert.h
+windows.h
+-
+stdlib.h
+-
+string.h
+-
+tchar.h
+-
+vector
+-
+iterator
+-
+iostream
+-
+algorithm
+-
+malloc.h
+-
+
+C:/Users/User/CLionProjects/numConverter/main.cpp
+Convert.cpp
+C:/Users/User/CLionProjects/numConverter/Convert.cpp
+
