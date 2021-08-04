@@ -26,7 +26,7 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 static TCHAR szWindowClass[] = _T("DesktopApp");
 
 // The string that appears in the application's title bar.
-static TCHAR szTitle[] = _T("Different counting systems calculator");
+static TCHAR szTitle[] = _T("Converter");
 
 //HINSTANCE hInst;
 //
@@ -61,7 +61,7 @@ private:
 
 private:
     HWND text_field_1, text_field_2, text_field_3, calc_button, hWnd;
-    const int x_size = 550, y_size = 240;
+    const int x_size = 390, y_size = 180;
     wchar_t *res;
 };
 

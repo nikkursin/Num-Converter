@@ -97,17 +97,36 @@ inline void Converter::init_controls() {
     //int LEFT = (DialogRect.right - 100) / 2;
     //int TOP = (DialogRect.bottom - 25) / 2;
 
-
-    if (this->calc_button = CreateWindowEx(0, _T("BUTTON"), _T("Calculate"), WS_VISIBLE | WS_CHILD | WS_BORDER , 80, 165, 100, 25, hWnd, reinterpret_cast<HMENU>(Converter::CTL_ID::BUTTON_ID), nullptr , nullptr));
+    //Convert button
+    this->calc_button = CreateWindowExA(0, _T("BUTTON"), _T("Convert"), WS_VISIBLE | WS_CHILD | WS_BORDER, 142, 105, 105,
+                                       30, hWnd, reinterpret_cast<HMENU>(Converter::CTL_ID::BUTTON_ID), nullptr,
+                                       nullptr);
+    if (this->calc_button);
     else if (!this->calc_button)throw std::runtime_error("Error! Can't create button");
 
-    if (this->text_field_1 = CreateWindowEx(WS_EX_CLIENTEDGE, _T("EDIT"), _T("0"), WS_BORDER | WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL, 49, 25, 200, 25, hWnd, reinterpret_cast<HMENU>(Converter::CTL_ID::NUMFIELD_ID), nullptr, nullptr));
+    //Field to enter num to convert
+    this->text_field_1 = CreateWindowExA(WS_EX_CLIENTEDGE, _T("EDIT"), _T("0"),
+                                        WS_BORDER | WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL , 76, 26, 276, 25, hWnd, reinterpret_cast <HMENU> (Converter::CTL_ID::NUMFIELD_ID), nullptr, nullptr);
+    /*this->text_field_1 = CreateWindowEx(WS_EX_CLIENTEDGE, _T("EDIT"), _T("0"),
+                                        WS_BORDER | WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL | WM_SETFONT, 76, 26, 276,
+                                        25, hWnd, reinterpret_cast<HMENU>(Converter::CTL_ID::NUMFIELD_ID), nullptr,
+                                        nullptr);*/
+
+    if (this->text_field_1);
     else if (!this->text_field_1) throw std::runtime_error("Error! Can't create field 1");
 
-    if (this->text_field_2 = CreateWindowEx(WS_EX_CLIENTEDGE, _T("EDIT"), _T("0"), WS_BORDER | WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL , 49, 65, 40, 25, hWnd, reinterpret_cast<HMENU>(Converter::CTL_ID::SYSFIELD_ID), nullptr, nullptr));
+    //Field to enter system num
+    this->text_field_2 = CreateWindowExA(WS_EX_CLIENTEDGE, _T("EDIT"), _T("0"),
+                                        WS_BORDER | WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL, 37, 26, 30, 25, hWnd,
+                                        reinterpret_cast<HMENU>(Converter::CTL_ID::SYSFIELD_ID), nullptr, nullptr);
+    if (this->text_field_2);
     else if (!this->text_field_2) throw std::runtime_error("Error! Can't create field 2");
 
-    if ( this->text_field_3 = CreateWindowEx(WS_EX_CLIENTEDGE, _T("EDIT"), _T("Your result"), WS_BORDER | WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL, 12, 115, 237, 25, hWnd, reinterpret_cast<HMENU>(Converter::CTL_ID::SYSFIELD_ID), nullptr , nullptr));
+    //Field to output result
+    this->text_field_3 = CreateWindowExA(WS_EX_CLIENTEDGE, _T("EDIT"), _T("your result"),
+                                        WS_BORDER | WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL, 37, 63, 315, 25, hWnd,
+                                        reinterpret_cast<HMENU>(Converter::CTL_ID::SYSFIELD_ID), nullptr, nullptr);
+    if (this->text_field_3);
     else if (!this->text_field_3) throw std::runtime_error("Error! Can't create field 3");
     //you can add your font there
 }
@@ -271,8 +290,8 @@ inline LRESULT Converter::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
             HDC hdc;
             hdc = BeginPaint(hWnd, &ps);
             hdc = GetDC(hWnd);
-            TextOut(hdc, 12, 27, "Num: ", 5);
-            TextOut(hdc, 12, 67, "Sys: ", 5);
+            /*TextOut(hdc, 12, 27, "Num: ", 5);
+            TextOut(hdc, 12, 67, "Sys: ", 5);*/
             ReleaseDC(hWnd, hdc);
             EndPaint(hWnd, &ps);
             break;
@@ -292,7 +311,7 @@ inline LRESULT Converter::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
                         int sys = Converter::WideToInt(text_sys);
                         sys++;
                         std::cout << sys;
-                        SetWindowText(this->text_field_3, reinterpret_cast<LPSTR>(sys));
+                        SetWindowTextA(this->text_field_3, reinterpret_cast<LPSTR>(sys));
                         MessageBox(hWnd, reinterpret_cast<LPSTR>(sys), _T("RESULT"), MB_ICONINFORMATION | MB_OK);
                     }
                     catch (...) {
