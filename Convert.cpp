@@ -10,7 +10,6 @@ inline Converter::Converter() {
     }
     catch (const std::exception& e) {
         std::string expt_data = e.what();
-        //MessageBox(nullptr, std::wstring(begin(expt_data), end(expt_data)).c_str(), _T("Error"), MB_ICONERROR | MB_OK);
         ExitProcess(EXIT_FAILURE);
     }
 }
@@ -31,12 +30,11 @@ inline int Converter::Run() {
 }
 
 inline void Converter::init_new_window() {
-    /* CreateConsole();
- printf("Yohooo!\n"); */
 
-    AllocConsole();
+    //Adding console
+    /*AllocConsole();
     std::freopen("CONOUT$", "wt", stdout);
-    std::freopen("CONIN$", "rt", stdin);
+    std::freopen("CONIN$", "rt", stdin);*/
 
 
     WNDCLASSEX wcex;
@@ -56,10 +54,10 @@ inline void Converter::init_new_window() {
 
     if (!RegisterClassEx(&wcex))
     {
-       /* MessageBox(NULL,
+        MessageBox(hWnd,
                    _T("Call to RegisterClassEx failed!"),
                    _T("Windows Desktop Guided Tour"),
-                   NULL); */
+                   MB_ICONINFORMATION);
 
         throw std::runtime_error("Error, can't register main window class!");
     }
@@ -80,22 +78,17 @@ inline void Converter::init_new_window() {
 
     if (!hWnd)
     {
-      /*  MessageBox(NULL,
+        MessageBox(hWnd,
                    _T("Call to CreateWindow failed!"),
                    _T("Windows Desktop Guided Tour"),
-                   NULL);*/
+                   MB_ICONINFORMATION);
 
         throw std::runtime_error("Error, can't create main Window");
     }
-    //return (int)msg.wParam;
 
 }
 
 inline void Converter::init_controls() {
-    //RECT DialogRect;
-    //GetClientRect(hWnd, &DialogRect);
-    //int LEFT = (DialogRect.right - 100) / 2;
-    //int TOP = (DialogRect.bottom - 25) / 2;
 
     //Convert button
     this->calc_button = CreateWindowExA(0, _T("BUTTON"), _T("Convert"), WS_VISIBLE | WS_CHILD | WS_BORDER, 142, 105, 105,
@@ -113,7 +106,7 @@ inline void Converter::init_controls() {
 
     //Field to enter system num
     this->text_field_2 = CreateWindowExA(WS_EX_CLIENTEDGE, _T("EDIT"), _T("0"),
-                                        WS_BORDER | WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL , 37, 26, 30, 25, hWnd,
+                                        WS_BORDER | WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL | ES_NUMBER, 37, 26, 30, 25, hWnd,
                                         reinterpret_cast<HMENU>(Converter::CTL_ID::SYSFIELD_ID), nullptr, nullptr);
     if (this->text_field_2);
     else if (!this->text_field_2) throw std::runtime_error("Error! Can't create field 2");
@@ -211,7 +204,6 @@ inline TCHAR* Converter::transform(TCHAR* system, TCHAR* number) {
     }
     result.push_back(IntToChar(num % sys));
     std::reverse (result.begin(), result.end());
-    std::cout << result << "\n";
 
     return StrToChar(result);
 }
@@ -221,22 +213,20 @@ inline LRESULT Converter::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
     switch (message)
     {
         case WM_PAINT: {
-            PAINTSTRUCT ps;
+           /* PAINTSTRUCT ps;
             HDC hdc;
             hdc = BeginPaint(hWnd, &ps);
             hdc = GetDC(hWnd);
-            /*TextOut(hdc, 12, 27, "Num: ", 5);
-            TextOut(hdc, 12, 67, "Sys: ", 5);*/
+            TextOut(hdc, 12, 27, "Num: ", 5);
+            TextOut(hdc, 12, 67, "Sys: ", 5);
             ReleaseDC(hWnd, hdc);
-            EndPaint(hWnd, &ps);
+            EndPaint(hWnd, &ps);*/
             break;
         }
         case WM_COMMAND: {
             switch(static_cast<Converter::CTL_ID>(LOWORD(wParam))) {
                 case(Converter::CTL_ID::BUTTON_ID):
                 try {
-                    //wchar_t* text_num =  new wchar_t[GetWindowTextLength(this->text_field_1)];
-                    //wchar_t* text_sys =  new wchar_t[GetWindowTextLength(this->text_field_2)];
 
                     TCHAR* text_num = new TCHAR[GetWindowTextLength(this->text_field_1) + 1];
                     TCHAR* text_sys = new TCHAR[GetWindowTextLength(this->text_field_2) + 1];
