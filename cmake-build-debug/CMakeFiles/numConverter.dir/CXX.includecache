@@ -19,8 +19,6 @@ string.h
 -
 tchar.h
 -
-vector
--
 iterator
 -
 iostream

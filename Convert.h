@@ -14,7 +14,6 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #include <stdlib.h>
 #include <string.h>
 #include <tchar.h>
-#include <vector>
 #include <iterator>
 #include <iostream>
 #include <algorithm>
@@ -28,6 +27,7 @@ static TCHAR szWindowClass[] = _T("DesktopApp");
 // The string that appears in the application's title bar.
 static TCHAR szTitle[] = _T("Converter");
 
+
 //HINSTANCE hInst;
 //
 //// Forward declarations of functions included in this code module:
@@ -39,17 +39,15 @@ class Converter {
         NUMFIELD_ID,
         SYSFIELD_ID
     };
+
+
 public:
     explicit Converter();
     ~Converter();
     int Run();
-    void print(wchar_t arr[]);
-    int WideToInt(wchar_t arr[]);
-    int miniPow(int a, int b);
-    void transformation(wchar_t* text_num, int kf, wchar_t*& res);
-    wchar_t converting_num(int a);
-    void push_back(wchar_t*& arr, wchar_t num);
-    void reverse(wchar_t*& temp);
+    TCHAR* transform(TCHAR* sys, TCHAR* num);
+    char IntToChar(int a);
+    TCHAR* StrToChar(std::string str);
 private:
     void init_new_window();
     void init_controls();
